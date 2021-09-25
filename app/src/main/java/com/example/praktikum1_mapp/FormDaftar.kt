@@ -35,13 +35,10 @@ class FormDaftar : AppCompatActivity() {
             val Email = editEmail.text.toString()
             val Pass1 = editPassword1.text.toString()
             val Pass2 = editPassword2.text.toString()
-
             if(Nama.equals("")||Email.equals("")||Pass1.equals("")||Pass2.equals(""))
                 Toast.makeText(applicationContext,"Terdapat Kolom Kosong",Toast.LENGTH_SHORT).show()
-            else
-            {
-                if(Pass1.equals(Pass2))
-                {
+            else {
+                if(Pass1.equals(Pass2)) {
                     // Tulis Database
                     val user = UserInfo(Nama,Email,Pass1)
                     val userId = "0"
@@ -50,8 +47,7 @@ class FormDaftar : AppCompatActivity() {
                         .setValue(user)
                         .addOnCompleteListener {
                             task ->
-                            if (task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 Toast.makeText(applicationContext,"Akun Berhasil Ditambahkan",Toast.LENGTH_SHORT)
                                 finish()
                             }
@@ -59,8 +55,7 @@ class FormDaftar : AppCompatActivity() {
                                 Toast.makeText(applicationContext,"Akun Gagal Ditambahkan",Toast.LENGTH_SHORT)
                         }
                 }
-                else
-                {
+                else {
                     Toast.makeText(applicationContext,"Password Tidak Sama",Toast.LENGTH_SHORT).show()
                     editPassword1.setText("")
                     editPassword2.setText("")
