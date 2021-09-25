@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Praktikum1MApp">
         <activity
+            android:name=".FormDaftar"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
