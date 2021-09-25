@@ -44,7 +44,20 @@ class FormDaftar : AppCompatActivity() {
                 {
                     // Tulis Database
                     val user = UserInfo(Nama,Email,Pass1)
-                    database.child("users").child("0").setValue(user)
+                    val userId = "0"
+                    database.child("users")
+                        .child(userId)
+                        .setValue(user)
+                        .addOnCompleteListener {
+                            task ->
+                            if (task.isSuccessful())
+                            {
+                                Toast.makeText(applicationContext,"Akun Berhasil Ditambahkan",Toast.LENGTH_SHORT)
+                                finish()
+                            }
+                            else
+                                Toast.makeText(applicationContext,"Akun Gagal Ditambahkan",Toast.LENGTH_SHORT)
+                        }
                 }
                 else
                 {
