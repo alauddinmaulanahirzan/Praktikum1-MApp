@@ -1,5 +1,6 @@
 package com.example.praktikum1_mapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity() {
             editPassword.setText("")
         }
         btnDaftar.setOnClickListener {
-            
+            val formDaftar = Intent(this,FormDaftar::class.java)
+            startActivity(formDaftar)
         }
         btnKeluar.setOnClickListener {
             finish()
