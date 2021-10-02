@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                                     val profile = Intent(applicationContext,ProfileActivity::class.java)
                                     profile.putExtra("nama",resultNama)
                                     profile.putExtra("email",resultEmail)
+                                    startActivity(profile)
                                 }
                                 else
                                     Toast.makeText(applicationContext,"Data Login Salah",Toast.LENGTH_SHORT)
