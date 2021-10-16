@@ -4,12 +4,12 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
@@ -34,8 +34,8 @@ class ProfileActivity : AppCompatActivity() {
 
         database = Firebase.database.reference
 
-        txtNama.setText("Nama : "+nama)
-        txtEmail.setText("E-Mail : "+email)
+        txtNama.text = "Nama : "+nama
+        txtEmail.text = "E-Mail : "+email
 
         btnUbahData.setOnClickListener {
             val formUbahData = Intent(this,FormUbah::class.java)
@@ -45,10 +45,6 @@ class ProfileActivity : AppCompatActivity() {
         }
         btnHapusAkun.setOnClickListener {
             val buildMessage = AlertDialog.Builder(this@ProfileActivity)
-            val input = EditText(this)
-            input.setHint("Masukkan Password")
-            input.inputType = InputType.TYPE_CLASS_TEXT
-            buildMessage.setView(input)
             buildMessage.setMessage("Apakah Kamu yakin menghapus "+nama+"?")
                 .setTitle("Peringatan!")
                 .setCancelable(false)
@@ -58,9 +54,22 @@ class ProfileActivity : AppCompatActivity() {
                         .orderByChild("email")
                         .equalTo(email)
 
-                    queryNama.addListenerForSingleValueEvent(object:ValueEventListener{})
+                    queryNama.addListenerForSingleValueEvent(object:ValueEventListener{
+                        override fun onDataChange(p0: DataSnapshot) {
+                            p0.ref.removeValue()
+                            finish()
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+
+                        }
+                    })
                 }
-                .setNegativeButton("Tidak") { dialog, id -> }
+                .setNegativeButton("Tidak") { dialog, id ->
+                    Toast.makeText(applicationContext,"User Membatalkan",Toast.LENGTH_SHORT).show()
+                }
+            val alert = buildMessage.create()
+            alert.show()
         }
         btnKeluar.setOnClickListener {
             finish()
